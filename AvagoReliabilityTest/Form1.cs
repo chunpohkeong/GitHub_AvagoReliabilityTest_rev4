@@ -8751,6 +8751,21 @@ namespace AvagoReliabilityTest
             {
                 second_end++;
 
+                //when ABORT button was clicked
+                #region when ABORT button was clicked
+                if (GlobalVariable.abortSet == true)
+                {
+                    updateDisplay = false;
+                    timer_end.Stop();
+                    stresstestpowoff = true;
+                    stresstest_powoff();
+
+                    hour = 0;
+                    minute = 0;
+                    second = 0;
+                }
+                #endregion
+
                 if (((second_end * (int)3.6e6) % GlobalVariable.iTotalTimeMs) == 0)
                 {
                     updateDisplay = false;
