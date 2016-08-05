@@ -145,7 +145,6 @@ namespace AvagoReliabilityTest
                             _txtStressFreq4MHz.Text = test_setting[13];
                     }
                 }
-           
         }
 
         public void InitializeGraph()
@@ -2444,7 +2443,7 @@ namespace AvagoReliabilityTest
                 if (start_counter == 1 )//&& _btnInitWasClicked == true )
                 {
                     DateTime DTFinish = DateTime.Now;
-
+                    
                     if (GlobalVariable.iTotalTimeMs < (int)3.6e6)
                     {
                         //estimate days to complete test 
@@ -2491,8 +2490,17 @@ namespace AvagoReliabilityTest
 
                 //create time for next measurement 
                 DateTime TimetoNextMeas = DateTime.Now;
-                string DtTimetoNextMeas = TimetoNextMeas.AddHours(Convert.ToSingle(_txtBIInterval.Text)).ToString("HH:mm:ss");
-                _txtTimeToNextMeas.Text = DtTimetoNextMeas;
+
+                if (GlobalVariable.iDelayTimeMs < (int)3.6e6)
+                {
+                    string DtTimetoNextMeas = TimetoNextMeas.AddMinutes(Convert.ToSingle(_txtBIInterval.Text)).ToString("HH:mm:ss");
+                    _txtTimeToNextMeas.Text = DtTimetoNextMeas;
+                }
+                else if (GlobalVariable.iDelayTimeMs >= (int)3.6e6)
+                {
+                    string DtTimetoNextMeas = TimetoNextMeas.AddHours(Convert.ToSingle(_txtBIInterval.Text)).ToString("HH:mm:ss");
+                    _txtTimeToNextMeas.Text = DtTimetoNextMeas;
+                }
 
 
                 //read startsweep , stopsweep , stress frequencies from text box
