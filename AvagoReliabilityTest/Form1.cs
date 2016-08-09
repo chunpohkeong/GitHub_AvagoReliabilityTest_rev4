@@ -2502,7 +2502,6 @@ namespace AvagoReliabilityTest
                     _txtTimeToNextMeas.Text = DtTimetoNextMeas;
                 }
 
-
                 //read startsweep , stopsweep , stress frequencies from text box
                 if (_txtStartFreq1.Text     != "" && _txtStartFreq2.Text     != "" && _txtStartFreq3.Text     != "" && _txtStartFreq4.Text     != ""
                  && _txtStopFreq1.Text      != "" && _txtStopFreq2.Text      != "" && _txtStopFreq3.Text      != "" && _txtStopFreq4.Text      != ""
@@ -2529,6 +2528,7 @@ namespace AvagoReliabilityTest
                     MessageBox.Show("Please enter frequencies into text boxes", "Instruments Init", MessageBoxButtons.OK);
                 }
 
+                //save all data setting into text file(Datasetting _file.txt)
                 SaveDataSetting_counter++;
                 if (SaveDataSetting_counter == 1)
                 {
@@ -2562,9 +2562,10 @@ namespace AvagoReliabilityTest
                     LibPXI.Result.Add(LibPXI.subSweepResult);
                     SaveData();
 
-                    UpdateChannelDisplay();
                     updateDisplay   = true;
                     UpdateDisplay();
+                    UpdateChannelDisplay();
+
                     BItimer.Start();
                     stresstestpowon = true;
                     stresstest_powon();
@@ -8243,8 +8244,8 @@ namespace AvagoReliabilityTest
 						_txtstresson_CH49.Clear();
                         _txtstresson_CH49.Text = Convert.ToString(dbm49);
                     }
-                #endregion
                 }
+                #endregion
             }
         }
 
@@ -8989,6 +8990,7 @@ namespace AvagoReliabilityTest
                                     hour                   = hour + 1;
                                     _txthour.Text          = hour.ToString();
                                     _txtElapsedBITime.Text = hour.ToString();
+
                                     BItimer.Stop();
                                     stresstestpowoff = true;
                                     stresstest_powoff();
